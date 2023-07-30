@@ -235,7 +235,7 @@ modifier= Modifier
                 Text(text="Don't have account?", fontSize = 14.sp)
 
 TextButton(onClick = { /*TODO*/ }) {
-  Text(text = "Register")
+  Text(text = "Register now")
 }
 
             }

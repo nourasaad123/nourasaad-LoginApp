@@ -1,0 +1,61 @@
+{
+  "format": 1,
+  "restore": {
+    "D:\\MyLoginInScreen\\FileOperator\\FileOperator.csproj": {}
+  },
+  "projects": {
+    "D:\\MyLoginInScreen\\FileOperator\\FileOperator.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "D:\\MyLoginInScreen\\FileOperator\\FileOperator.csproj",
+        "projectName": "FileOperator",
+        "projectPath": "D:\\MyLoginInScreen\\FileOperator\\FileOperator.csproj",
+        "packagesPath": "C:\\Users\\solutions\\.nuget\\packages\\",
+        "outputPath": "D:\\MyLoginInScreen\\FileOperator\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\solutions\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net6.0"
+        ],
+        "sources": {
+          "https://www.nuget.org/api/v2/": {}
+        },
+        "frameworks": {
+          "net6.0": {
+            "targetAlias": "net6.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net6.0": {
+          "targetAlias": "net6.0",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.410\\RuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}

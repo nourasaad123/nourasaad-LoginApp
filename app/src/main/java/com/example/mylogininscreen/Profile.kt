@@ -1,6 +1,6 @@
 package com.example.mylogininscreen
 
-     data class Profile(val name: String, val job: String)
+     data class Profile(val name: String, val job: String){
 
      fun getDummyProfiles(): List<Profile> {
          return listOf(

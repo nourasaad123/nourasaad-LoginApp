@@ -4,6 +4,7 @@ package com.example.mylogininscreen
 //import androidx.compose.foundation.layout.RowScopeInstance.weight
 //import androidx.compose.foundation.layout.ColumnScopeInstance.weight
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.ComponentActivity
@@ -63,6 +64,8 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.core.content.ContextCompat.startActivity
+import androidx.core.view.ViewCompat.ScrollAxis
 import com.example.mylogininscreen.ui.theme.MyLoginInScreenTheme
 //import kotlin.coroutines.jvm.internal.CompletedContinuation.context
 
@@ -174,7 +177,12 @@ Button(onClick = { if(username.isEmpty()||password .contains('_')||
     ||password .contains('%')||password.isEmpty()||password.length<8) {
     Toast.makeText( context,"InValid Username or Password!",Toast.LENGTH_LONG).show()
 }else {
-    Toast.makeText(context, "welcome $username", Toast.LENGTH_LONG).show()
+
+        val intent=
+            Intent(context,
+                ScrollActivity::class.java)
+context.startActivity(intent)
+    //Toast.makeText(context, "welcome $username", Toast.LENGTH_LONG).show()
 }
 },
     modifier=Modifier.fillMaxWidth(),

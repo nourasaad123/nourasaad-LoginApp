@@ -44,7 +44,7 @@ class ScrollActivity : ComponentActivity() {
     }
 }
 @Composable
-fun MyCard() {
+fun MyCard(val name: String, val job: String) {
 
 Row(modifier = Modifier
     .padding(8.dp)

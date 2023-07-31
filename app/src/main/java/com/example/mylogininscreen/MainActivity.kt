@@ -10,6 +10,7 @@ import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -167,16 +168,16 @@ Row(verticalAlignment = Alignment.CenterVertically){
 Spacer(modifier = Modifier.height(25.dp))
 val context= LocalContext.current
 Button(onClick = { if(username.isEmpty()||password .contains('_')||
-   password.contains('@')||password .contains('$')||password .contains('#')
+    password.contains('@')||password .contains('$')||password .contains('#')
     ||password .contains('%')||password.isEmpty()||password.length<8) {
     Toast.makeText( context,"InValid Username or Password!",Toast.LENGTH_LONG).show()
 }else {
     Toast.makeText(context, "welcome $username", Toast.LENGTH_LONG).show()
 }
-       },
+},
     modifier=Modifier.fillMaxWidth(),
-shape = RoundedCornerShape(16.dp),
-    colors = ButtonDefaults.buttonColors(),
+shape = RoundedCornerShape(16.dp)
+
 ) {
 Text(text="Log in")
 }
@@ -186,42 +187,38 @@ Spacer(modifier = Modifier.height(16.dp))
 Text(text = "Or log in with",fontSize=14.sp)
             }
             Row(modifier=Modifier.fillMaxWidth(),Arrangement.SpaceAround){
-              Button(onClick = {  },
+              Button( colors = ButtonDefaults.buttonColors(containerColor = Color.White),onClick = {  },
                   shape= RoundedCornerShape(50),
               modifier= Modifier
                   .height(45.dp)
-                  .width(45.dp),
-                  //colors= ButtonDefaults.buttonColors(Color.White)
+                  .width(45.dp)
               ) {
 Image(painter = painterResource(id = R.drawable.facebook), contentDescription ="Facebook Logo",
 modifier= Modifier
     .weight(1f)
     .size(40.dp)
-
     )
               }
-                Button(onClick = {  },
-                    shape= RoundedCornerShape(50),
-                    modifier= Modifier
+                Button(
+                    colors = ButtonDefaults.buttonColors(containerColor = Color.White) ,onClick = { },
+                    shape = RoundedCornerShape(50),
+                    modifier = Modifier
                         .height(45.dp)
                         .width(45.dp),
-                    //colors= ButtonDefaults.buttonColors(Color.White)
-                ) {
+
+                    ) {
                     Image(
                         painter = painterResource(id = R.drawable.google),
-                        contentDescription = "Google Logo",
-                        modifier = Modifier
-                            .weight(1f)
-                            .size(40.dp)
+                        contentDescription = "",
+                        modifier = Modifier.weight(1f).size(40.dp)
                     )
 
                 }
-                Button(onClick = {  },
+                Button( colors = ButtonDefaults.buttonColors(containerColor = Color.White),onClick = {  },
                     shape= RoundedCornerShape(50),
                     modifier= Modifier
                         .height(45.dp)
-                        .width(45.dp),
-
+                        .width(45.dp)
                 ) {
                     Image(painter = painterResource(id = R.drawable.twitter), contentDescription ="Facebook Logo",
                         modifier= Modifier

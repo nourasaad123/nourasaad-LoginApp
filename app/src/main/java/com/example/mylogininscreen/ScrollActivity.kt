@@ -18,12 +18,16 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.semantics.Role.Companion.Image
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.example.mylogininscreen.R.drawable
 import com.example.mylogininscreen.ui.theme.MyLoginInScreenTheme
 
 class ScrollActivity : ComponentActivity() {
@@ -53,8 +57,15 @@ Surface(modifier = Modifier.size(50.dp),
 shape= CircleShape,
 color=MaterialTheme.colorScheme.onSurface.copy(alpha=0.4f)
 ) {
-Image(painter =R.drawable.man, contentDescription ="" )
+Image(painter = painterResource(id = R.drawable.man), contentDescription = null)
 }
+    Column(modifier= Modifier
+        .padding(10.dp)
+        .align(Alignment.CenterVertically)){
+Text(text = "Jhon Doe", fontWeight = FontWeight.Bold,color=Color.White)
+        Text(text="Sof" +
+                "twer Engineer",style=MaterialTheme.typography.bodyMedium,color=Color.White)
+    }
 }
 
 

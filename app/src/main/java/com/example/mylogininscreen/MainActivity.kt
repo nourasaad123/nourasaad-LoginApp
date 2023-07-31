@@ -4,13 +4,11 @@ package com.example.mylogininscreen
 //import androidx.compose.foundation.layout.RowScopeInstance.weight
 //import androidx.compose.foundation.layout.ColumnScopeInstance.weight
 import android.annotation.SuppressLint
-import android.app.Activity
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -66,7 +64,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.mylogininscreen.ui.theme.MyLoginInScreenTheme
-import java.nio.file.WatchEvent
+//import kotlin.coroutines.jvm.internal.CompletedContinuation.context
+
 //import kotlin.coroutines.jvm.internal.CompletedContinuation.context
 
 class MainActivity : ComponentActivity() {
@@ -87,7 +86,8 @@ class MainActivity : ComponentActivity() {
 fun LogininScreen() {
    var username by remember{ mutableStateOf("") }
     var password by remember{ mutableStateOf("") }
-    val checkedState by remember{ mutableStateOf(true) }
+    var checkState = remember{ mutableStateOf(true) }
+    val context= LocalContext.current
     val (focusUsername,focusPssword)= remember {FocusRequester.createRefs()}
     val keyboardController=LocalSoftwareKeyboardController.current
     var isPasswordVisiable by remember { mutableStateOf(false) }
@@ -158,16 +158,17 @@ Icon(
                 modifier = Modifier.fillMaxWidth(), Arrangement.SpaceBetween
             ) {
 Row(verticalAlignment = Alignment.CenterVertically){
-    Checkbox(checked = checkedState, onCheckedChange = {})
+    Checkbox(checked = checkState.value, onCheckedChange = { checkState.value=it})
     Text(text= stringResource(R.string.remember_me),fontSize=12.sp)
 }
 
-                TextButton(onClick = {  }) {
-                    Text(text="Forget Password",fontSize=12.sp)
+                TextButton(onClick = { Toast.makeText(context,"You Forget your password !"
+                    ,Toast.LENGTH_LONG).show() }) {
+                    Text(text= stringResource(R.string.forget_password),fontSize=12.sp)
                 }
             }
 Spacer(modifier = Modifier.height(25.dp))
-val context= LocalContext.current
+//val context= LocalContext.current
 Button(onClick = { if(username.isEmpty()||password .contains('_')||
     password.contains('@')||password .contains('$')||password .contains('#')
     ||password .contains('%')||password.isEmpty()||password.length<8) {
@@ -195,9 +196,7 @@ Text(text = "Or log in with",fontSize=14.sp)
                   .width(45.dp)
               ) {
 Image(painter = painterResource(id = R.drawable.facebook), contentDescription ="Facebook Logo",
-modifier= Modifier
-    .weight(1f)
-    .size(40.dp)
+modifier= Modifier.weight(1f).size(40.dp)
     )
               }
                 Button(
@@ -210,8 +209,7 @@ modifier= Modifier
                     ) {
                     Image(
                         painter = painterResource(id = R.drawable.google),
-                        contentDescription = "",
-                        modifier = Modifier.weight(1f).size(40.dp)
+                        contentDescription = "", modifier = Modifier.weight(1f).size(40.dp)
                     )
 
                 }

@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">MyLoginInScreen</string>
+    <string name="welcome">Welcome</string>
+    <string name="log_in">Log in</string>
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    <string name="remember_me">Remember me</string>
+    <string name="register_now">Register now</string>
+    <string name="don_t_have_account">Don\'t have account?</string>
 </resources>

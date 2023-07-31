@@ -57,6 +57,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
@@ -115,14 +116,14 @@ modifier= Modifier
     .weight(1f)
     .size(100.dp)
     )
-        Text(text = "Welcome",fontSize=50.sp)
+        Text(text = stringResource(R.string.welcome),fontSize=50.sp)
     }
 }
         Column(
           modifier= Modifier
               .fillMaxWidth()
               .padding(horizontal = 40.dp)) {
-            Text(text="Log in",fontSize=40.sp)
+            Text(text= stringResource(R.string.log_in),fontSize=40.sp)
             OutlinedTextField(value = username, onValueChange ={username=it},
             modifier= Modifier
                 .fillMaxWidth()
@@ -130,7 +131,7 @@ modifier= Modifier
             keyboardOptions = KeyboardOptions(imeAction = ImeAction.Next),
             keyboardActions = KeyboardActions(onNext = {focusPssword.requestFocus()}),
                 singleLine =true,
-                label = {Text(text="Username")}
+                label = {Text(text= stringResource(R.string.username))}
             )
             Spacer(modifier = Modifier.height(20.dp))
 OutlinedTextField(
@@ -138,7 +139,7 @@ OutlinedTextField(
         .fillMaxWidth()
         .focusRequester(focusPssword),
     value = password, onValueChange ={password=it},
-    label = {Text(text="Password")},
+    label = {Text(text= stringResource(R.string.password))},
 singleLine = true,
 keyboardOptions=KeyboardOptions(keyboardType= KeyboardType.Password, imeAction = ImeAction.Done),
     keyboardActions = KeyboardActions(onDone ={keyboardController?.hide()}),
@@ -158,7 +159,7 @@ Icon(
             ) {
 Row(verticalAlignment = Alignment.CenterVertically){
     Checkbox(checked = checkedState, onCheckedChange = {})
-    Text(text="Remember me",fontSize=12.sp)
+    Text(text= stringResource(R.string.remember_me),fontSize=12.sp)
 }
 
                 TextButton(onClick = {  }) {
@@ -229,10 +230,10 @@ modifier= Modifier
             }
             Spacer(modifier = Modifier.height(25.dp))
             Row(modifier=Modifier.fillMaxWidth(),Arrangement.Center, verticalAlignment = Alignment.CenterVertically) {
-                Text(text="Don't have account?", fontSize = 14.sp)
+                Text(text= stringResource(R.string.don_t_have_account), fontSize = 14.sp)
 
 TextButton(onClick = { /*TODO*/ }) {
-  Text(text = "Register now")
+  Text(text = stringResource(R.string.register_now))
 }
 
             }

@@ -66,7 +66,9 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.core.content.ContextCompat.startActivity
 import androidx.core.view.ViewCompat.ScrollAxis
+import androidx.navigation.NavController
 import com.example.mylogininscreen.ui.theme.MyLoginInScreenTheme
+
 //import kotlin.coroutines.jvm.internal.CompletedContinuation.context
 
 //import kotlin.coroutines.jvm.internal.CompletedContinuation.context
@@ -77,7 +79,8 @@ class MainActivity : ComponentActivity() {
         setContent {
             MyLoginInScreenTheme {
                 // A surface container using the 'background' color from the theme
-                LogininScreen()
+             //   LogininScreen()
+                Nav()
             }
         }
     }
@@ -86,176 +89,211 @@ class MainActivity : ComponentActivity() {
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalComposeUiApi::class)
 @Composable
-fun LogininScreen() {
-   var username by remember{ mutableStateOf("") }
-    var password by remember{ mutableStateOf("") }
-    var checkState = remember{ mutableStateOf(true) }
-    val context= LocalContext.current
-    val (focusUsername,focusPssword)= remember {FocusRequester.createRefs()}
-    val keyboardController=LocalSoftwareKeyboardController.current
+fun LogininScreen(navController: NavController) {
+    var username by remember { mutableStateOf("") }
+    var password by remember { mutableStateOf("") }
+    var checkState = remember { mutableStateOf(true) }
+    val context = LocalContext.current
+    val (focusUsername, focusPssword) = remember { FocusRequester.createRefs() }
+    val keyboardController = LocalSoftwareKeyboardController.current
     var isPasswordVisiable by remember { mutableStateOf(false) }
     Scaffold() {
-    Column(
-        modifier=Modifier.fillMaxSize(),
-    horizontalAlignment = Alignment.CenterHorizontally,
-    verticalArrangement = Arrangement.SpaceBetween
-    ){
-Box(modifier= Modifier
-    .fillMaxWidth()
-    .fillMaxHeight(fraction = 0.30f),Alignment.TopEnd){
-   Image(painter = painterResource(id = R.drawable.baseline_login_24), contentDescription ="",
-modifier=Modifier.fillMaxSize(),contentScale= ContentScale.FillBounds,
-   colorFilter= ColorFilter.tint(Color.White)
-       )
-    Column(modifier = Modifier
-        .fillMaxWidth()
-        .fillMaxHeight()
-        .padding(horizontal = 20.dp, vertical = 50.dp),
-        verticalArrangement = Arrangement.Center,
-    horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-Image(painter= painterResource(id = R.drawable.baseline_login_24),contentDescription="logo",
-modifier= Modifier
-    .weight(1f)
-    .size(100.dp)
-    )
-        Text(text = stringResource(R.string.welcome),fontSize=50.sp)
-    }
-}
         Column(
-          modifier= Modifier
-              .fillMaxWidth()
-              .padding(horizontal = 40.dp)) {
-            Text(text= stringResource(R.string.log_in),fontSize=40.sp)
-            OutlinedTextField(value = username, onValueChange ={username=it},
-            modifier= Modifier
-                .fillMaxWidth()
-                .focusRequester(focusUsername),
-            keyboardOptions = KeyboardOptions(imeAction = ImeAction.Next),
-            keyboardActions = KeyboardActions(onNext = {focusPssword.requestFocus()}),
-                singleLine =true,
-                label = {Text(text= stringResource(R.string.username))}
-            )
-            Spacer(modifier = Modifier.height(20.dp))
-OutlinedTextField(
-    modifier= Modifier
-        .fillMaxWidth()
-        .focusRequester(focusPssword),
-    value = password, onValueChange ={password=it},
-    label = {Text(text= stringResource(R.string.password))},
-singleLine = true,
-keyboardOptions=KeyboardOptions(keyboardType= KeyboardType.Password, imeAction = ImeAction.Done),
-    keyboardActions = KeyboardActions(onDone ={keyboardController?.hide()}),
-    visualTransformation = if(isPasswordVisiable)VisualTransformation.None else PasswordVisualTransformation(),
-    trailingIcon={
-IconButton(onClick = { isPasswordVisiable=!isPasswordVisiable }) {
-Icon(
-    imageVector = if (isPasswordVisiable) Icons.Default.LockOpen else Icons.Default.Lock,
-    contentDescription = "Password Toggle"
-)
-}
-    }
-    )
-            Spacer(modifier = Modifier.height(25.dp))
-            Row(
-                modifier = Modifier.fillMaxWidth(), Arrangement.SpaceBetween
+            modifier = Modifier.fillMaxSize(),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.SpaceBetween
+        ) {
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .fillMaxHeight(fraction = 0.30f), Alignment.TopEnd
             ) {
-Row(verticalAlignment = Alignment.CenterVertically){
-    Checkbox(checked = checkState.value, onCheckedChange = { checkState.value=it})
-    Text(text= stringResource(R.string.remember_me),fontSize=12.sp)
-}
-
-                TextButton(onClick = { Toast.makeText(context,"You Forget your password !"
-                    ,Toast.LENGTH_LONG).show() }) {
-                    Text(text= stringResource(R.string.forget_password),fontSize=12.sp)
-                }
-            }
-Spacer(modifier = Modifier.height(25.dp))
-//val context= LocalContext.current
-Button(onClick = { if(username.isEmpty()||password .contains('_')||
-    password.contains('@')||password .contains('$')||password .contains('#')
-    ||password .contains('%')||password.isEmpty()||password.length<8) {
-    Toast.makeText( context,"InValid Username or Password!",Toast.LENGTH_LONG).show()
-}else {
-
-        val intent=
-            Intent(context,
-                ScrollActivity::class.java)
-context.startActivity(intent)
-    //Toast.makeText(context, "welcome $username", Toast.LENGTH_LONG).show()
-}
-},
-    modifier=Modifier.fillMaxWidth(),
-shape = RoundedCornerShape(16.dp)
-
-) {
-Text(text="Log in")
-}
-Spacer(modifier = Modifier.height(16.dp))
-            Row(modifier=Modifier.fillMaxWidth(),Arrangement.Center)
-            {
-Text(text = "Or log in with",fontSize=14.sp)
-            }
-            Row(modifier=Modifier.fillMaxWidth(),Arrangement.SpaceAround){
-              Button( colors = ButtonDefaults.buttonColors(containerColor = Color.White),onClick = {  },
-                  shape= RoundedCornerShape(50),
-              modifier= Modifier
-                  .height(45.dp)
-                  .width(45.dp)
-              ) {
-Image(painter = painterResource(id = R.drawable.facebook), contentDescription ="Facebook Logo",
-modifier= Modifier.weight(1f).size(40.dp)
-    )
-              }
-                Button(
-                    colors = ButtonDefaults.buttonColors(containerColor = Color.White) ,onClick = { },
-                    shape = RoundedCornerShape(50),
+                Image(
+                    painter = painterResource(id = R.drawable.baseline_login_24),
+                    contentDescription = "",
+                    modifier = Modifier.fillMaxSize(),
+                    contentScale = ContentScale.FillBounds,
+                    colorFilter = ColorFilter.tint(Color.White)
+                )
+                Column(
                     modifier = Modifier
-                        .height(45.dp)
-                        .width(45.dp),
-
-                    ) {
-                    Image(
-                        painter = painterResource(id = R.drawable.google),
-                        contentDescription = "", modifier = Modifier.weight(1f).size(40.dp)
-                    )
-
-                }
-                Button( colors = ButtonDefaults.buttonColors(containerColor = Color.White),onClick = {  },
-                    shape= RoundedCornerShape(50),
-                    modifier= Modifier
-                        .height(45.dp)
-                        .width(45.dp)
+                        .fillMaxWidth()
+                        .fillMaxHeight()
+                        .padding(horizontal = 20.dp, vertical = 50.dp),
+                    verticalArrangement = Arrangement.Center,
+                    horizontalAlignment = Alignment.CenterHorizontally
                 ) {
-                    Image(painter = painterResource(id = R.drawable.twitter), contentDescription ="Facebook Logo",
-                        modifier= Modifier
+                    Image(
+                        painter = painterResource(id = R.drawable.baseline_login_24),
+                        contentDescription = "logo",
+                        modifier = Modifier
                             .weight(1f)
-                            .size(40.dp)
+                            .size(100.dp)
                     )
+                    Text(text = stringResource(R.string.welcome), fontSize = 50.sp)
                 }
             }
-            Spacer(modifier = Modifier.height(25.dp))
-            Row(modifier=Modifier.fillMaxWidth(),Arrangement.Center, verticalAlignment = Alignment.CenterVertically) {
-                Text(text= stringResource(R.string.don_t_have_account), fontSize = 14.sp)
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 40.dp)
+            ) {
+                Text(text = stringResource(R.string.log_in), fontSize = 40.sp)
+                OutlinedTextField(value = username, onValueChange = { username = it },
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .focusRequester(focusUsername),
+                    keyboardOptions = KeyboardOptions(imeAction = ImeAction.Next),
+                    keyboardActions = KeyboardActions(onNext = { focusPssword.requestFocus() }),
+                    singleLine = true,
+                    label = { Text(text = stringResource(R.string.username)) }
+                )
+                Spacer(modifier = Modifier.height(20.dp))
+                OutlinedTextField(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .focusRequester(focusPssword),
+                    value = password, onValueChange = { password = it },
+                    label = { Text(text = stringResource(R.string.password)) },
+                    singleLine = true,
+                    keyboardOptions = KeyboardOptions(
+                        keyboardType = KeyboardType.Password,
+                        imeAction = ImeAction.Done
+                    ),
+                    keyboardActions = KeyboardActions(onDone = { keyboardController?.hide() }),
+                    visualTransformation = if (isPasswordVisiable) VisualTransformation.None else PasswordVisualTransformation(),
+                    trailingIcon = {
+                        IconButton(onClick = { isPasswordVisiable = !isPasswordVisiable }) {
+                            Icon(
+                                imageVector = if (isPasswordVisiable) Icons.Default.LockOpen else Icons.Default.Lock,
+                                contentDescription = "Password Toggle"
+                            )
+                        }
+                    }
+                )
+                Spacer(modifier = Modifier.height(25.dp))
+                Row(
+                    modifier = Modifier.fillMaxWidth(), Arrangement.SpaceBetween
+                ) {
+                    Row(verticalAlignment = Alignment.CenterVertically) {
+                        Checkbox(
+                            checked = checkState.value,
+                            onCheckedChange = { checkState.value = it })
+                        Text(text = stringResource(R.string.remember_me), fontSize = 12.sp)
+                    }
 
-TextButton(onClick = { /*TODO*/ }) {
-  Text(text = stringResource(R.string.register_now))
-}
+                    TextButton(onClick = {
+                        Toast.makeText(
+                            context, "You Forget your password !", Toast.LENGTH_LONG
+                        ).show()
+                    }) {
+                        Text(text = stringResource(R.string.forget_password), fontSize = 12.sp)
+                    }
+                }
+                Spacer(modifier = Modifier.height(25.dp))
+//val context= LocalContext.current
+                Button(
+                    onClick = {
+                        if (username.isEmpty() || password.contains('_') ||
+                            password.contains('@') || password.contains('$') || password.contains(
+                                '#'
+                            )
+                            || password.contains('%') || password.isEmpty() || password.length < 8
+                        ) {
+                            Toast.makeText(
+                                context,
+                                "InValid Username or Password!",
+                                Toast.LENGTH_LONG
+                            ).show()
+                        } else {
+
+                            val intent =
+                                Intent(
+                                    context,
+                                    ScrollActivity::class.java
+                                )
+                            context.startActivity(intent)
+                            //Toast.makeText(context, "welcome $username", Toast.LENGTH_LONG).show()
+                        }
+                    },
+                    modifier = Modifier.fillMaxWidth(),
+                    shape = RoundedCornerShape(16.dp)
+
+                ) {
+                    Text(text = "Log in")
+                }
+                Spacer(modifier = Modifier.height(14.dp))
+                Row(modifier = Modifier.fillMaxWidth().padding(10.dp), Arrangement.Center)
+                {
+                    Text(text = "Or log in with", fontSize = 20.sp)
+                }
+                Row(modifier = Modifier.fillMaxWidth(), Arrangement.SpaceAround) {
+                    IconButton(
+                        onClick = { },
+                        modifier = Modifier
+                            .size(45.dp)
+                    ) {
+                        Image(
+                            painter = painterResource(id = R.drawable.facebook),
+                            contentDescription = "Facebook Logo",
+                            modifier = Modifier
+                                .weight(1f)
+                                .size(40.dp)
+                        )
+                    }
+                    IconButton(
+                        onClick = { },
+                        modifier = Modifier
+                            .size(45.dp),
+
+                        ) {
+                        Image(
+                            painter = painterResource(id = R.drawable.google),
+                            contentDescription = "", modifier = Modifier
+                                .weight(1f)
+                                .size(40.dp)
+                        )
+
+                    }
+                    IconButton(
+                        onClick = { },
+                        modifier = Modifier
+                            .height(45.dp)
+                            .width(45.dp)
+                    ) {
+                        Image(
+                            painter = painterResource(id = R.drawable.twitter),
+                            contentDescription = "Facebook Logo",
+                            modifier = Modifier
+                                .weight(1f)
+                                .size(40.dp)
+                        )
+                    }
+                }
+                Spacer(modifier = Modifier.height(5.dp))
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    Arrangement.Center,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Text(text = stringResource(R.string.don_t_have_account), fontSize = 14.sp)
+
+                    TextButton(onClick = { navController.navigate("signup") }) {
+                        Text(text ="Sign Up")
+                    }
+                }
 
             }
-            Spacer(modifier = Modifier.height(25.dp))
-                }
 
         }
     }
-    }
-
+}
 
 
 @Preview(showBackground = true)
 @Composable
 fun GreetingPreview() {
     MyLoginInScreenTheme {
-       LogininScreen()
+      //  LogininScreen(()
     }
 }

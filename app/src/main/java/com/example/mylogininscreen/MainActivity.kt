@@ -191,7 +191,6 @@ fun LogininScreen(navController: NavController) {
                     }
                 }
                 Spacer(modifier = Modifier.height(25.dp))
-//val context= LocalContext.current
                 Button(
                     onClick = {
                         if (username.isEmpty() || password.contains('_') ||

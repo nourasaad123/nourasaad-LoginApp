@@ -40,7 +40,13 @@ import com.example.mylogininscreen.composescroll.persons
 import com.example.mylogininscreen.ui.theme.MyLoginInScreenTheme
 
 @Composable
-fun NavigateParameter(navController: NavController,fname:String,lname:String,age:Int,email:String) {
+fun NavigateParameter(
+    navController: NavController,
+    fname: String,
+    lname: String,
+    age: Int,
+    email: String
+) {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -60,7 +66,7 @@ fun NavigateParameter(navController: NavController,fname:String,lname:String,age
         ) {
             Image(
                 painter = painterResource(id = R.drawable.woman),
-                contentDescription = null,modifier=Modifier.size(100.dp)
+                contentDescription = null, modifier = Modifier.size(100.dp)
             )
         }
         Column(
@@ -69,13 +75,13 @@ fun NavigateParameter(navController: NavController,fname:String,lname:String,age
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
 
-                Text(
-                    text = "Name : $fname $lname ",
-                    fontWeight = FontWeight.Bold,
-                    color = Color.Black,
-                    textAlign = TextAlign.Center
-                )
-                Spacer(modifier = Modifier.padding(10.dp))
+            Text(
+                text = "Name : $fname $lname ",
+                fontWeight = FontWeight.Bold,
+                color = Color.Black,
+                textAlign = TextAlign.Center
+            )
+            Spacer(modifier = Modifier.padding(10.dp))
 
 
             Text(
